@@ -204,8 +204,16 @@ SELECT `school_db_instructor`.`id`,
 
 # Get the count of students, courses, and instructors and print them in the terminal
 def problem_four(request):
+  students = Student.objects.count()
+  courses = Course.objects.count()
+  instructors = Instructor.objects.count()
+  print(' ')
+  print(f'Students Count: {students}')
+  print(f'Courses Count: {courses}')
+  print(f'Instructors Count: {instructors}')
+  print(' ')
 
-    return complete(request)
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
@@ -249,7 +257,15 @@ SELECT COUNT(*) AS `__count`
 # NOTE every time you execute this function a duplicate student will be created with a different primary key number
 def problem_five(request):
 
-    return complete(request)
+  new_student = Student.objects.create(first_name = 'Kyle', last_name = 'Harwood', year = 9, gpa = 3.0)
+  print(' ')
+  print(f'ID: {new_student.id}')
+  print(f'Full Name: {new_student.first_name} {new_student.last_name}')
+  print(f'Year: {new_student.year}')
+  print(f'GPA: {new_student.gpa}')
+  print(" ")
+
+  return complete(request)
 
 
 # Supporting Query Method Documentation:
@@ -280,9 +296,19 @@ VALUES ('Kyle', 'Harwood', 9, 3.0)
 # Then query the studets table to get that student by their id
 # Print the new student's id, full name, and gpa to the terminal
 def problem_six(request):
+    student_id = 11
+    new_student_gpa = Student.objects.filter(id = 11).update(first_name = ' Kyle', last_name = 'Harwood', gpa = 3.5)
+    new_gpa = Student.objects.get(id = 11)
+    
+    
+    print(f'Id: {new_gpa.id}')
+    print(f'Full Name: {new_gpa.first_name} {new_gpa.last_name}')
+    print(f'GPA: {new_gpa.gpa}')
+
+
 
     # Make sure to set this equal to the primary key of the row you just created!
-    student_id = 11
+    # student_id = 11
 
     return complete(request)
 
@@ -330,7 +356,7 @@ def problem_seven(request):
 
     # Make sure to set this equal to the primary key of the row you just created!
     student_id = 11
-
+  # delete current id
     try:
         student = Student.objects.get(pk=student_id)
     except ObjectDoesNotExist:
